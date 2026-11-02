@@ -1,0 +1,941 @@
+/* ------------------------------------------------------------------ */
+/* Banner shell                                                        */
+/* ------------------------------------------------------------------ */
+
+.ZapioBanner {
+  --zapio-ink: #0e1a14;
+  --zapio-green: #23a55a;
+  --zapio-loop: 6.5s;
+  /* One easing for the drag so the finger and the page stay glued together. */
+  --zapio-drag-ease: cubic-bezier(0.45, 0.05, 0.3, 1);
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 165px;
+  border-radius: var(--p-border-radius-300);
+  background: linear-gradient(
+    to left,
+    var(--zapio-green) 0,
+    #1a7d44 110px,
+    #123a25 230px,
+    var(--zapio-ink) 340px
+  );
+  color: var(--p-color-text-inverse);
+}
+
+.ZapioBanner__content {
+  position: relative;
+  z-index: 2;
+  max-width: calc(100% - 340px);
+}
+
+.ZapioBanner__content .Polaris-Text--root {
+  color: inherit;
+}
+
+.ZapioBanner__close {
+  position: absolute;
+  z-index: 3;
+  top: var(--p-space-500);
+  right: var(--p-space-300);
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--p-border-radius-200);
+  background: transparent;
+  color: var(--p-color-text-inverse);
+  cursor: pointer;
+}
+
+.ZapioBanner__close svg {
+  fill: currentColor;
+}
+
+.ZapioBanner__close:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.ZapioBanner__close:focus-visible {
+  outline: 2px solid var(--p-color-border-focus);
+  outline-offset: 1px;
+}
+
+.ZapioBanner__visual {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 340px;
+  pointer-events: none;
+}
+
+.ZapioBanner__glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 90px 120px at 175px 120px,
+    rgba(4, 20, 11, 0.55),
+    transparent 70%
+  );
+}
+
+/* Narrow admin layouts: keep the copy readable, hide the illustration. */
+@media (max-width: 640px) {
+  .ZapioBanner__visual {
+    display: none;
+  }
+
+  .ZapioBanner__content {
+    max-width: calc(100% - 40px);
+  }
+
+  .ZapioBanner {
+    background: var(--zapio-ink);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Faded widget previews behind the phone (authored at 2x, scaled .5)  */
+/* ------------------------------------------------------------------ */
+
+.ZapioBackdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 680px;
+  height: 330px;
+  transform: scale(0.5);
+  transform-origin: 0 0;
+  font-size: 13px;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.26);
+  -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 0.35), #000 55%);
+  mask-image: linear-gradient(to right, rgba(0, 0, 0, 0.35), #000 55%);
+}
+
+.ZapioBackdrop__card {
+  position: absolute;
+  box-sizing: border-box;
+  padding: 18px 20px;
+  border: 2px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.ZapioBackdrop__card small,
+.ZapioBackdrop__card strong,
+.ZapioBackdrop__card b {
+  display: block;
+}
+
+.ZapioBackdrop__card small {
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+.ZapioBackdrop__card strong {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.ZapioBackdrop__card em {
+  margin-left: 6px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 10px;
+  font-style: normal;
+}
+
+.ZapioBackdrop__card--progress {
+  left: 90px;
+  top: 10px;
+  width: 260px;
+  height: 135px;
+  text-align: center;
+}
+
+.ZapioBackdrop__title {
+  margin: 0;
+  padding: 0 10px;
+  font-size: 14px;
+}
+
+.ZapioBackdrop__track {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin: 18px 20px 8px;
+}
+
+.ZapioBackdrop__track::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -20px;
+  right: -20px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.ZapioBackdrop__node {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.ZapioBackdrop__node--active {
+  width: 30px;
+  height: 30px;
+  margin-top: -8px;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  box-sizing: border-box;
+}
+
+.ZapioBackdrop__labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+}
+
+.ZapioBackdrop__card--pack {
+  left: 90px;
+  top: 170px;
+  width: 250px;
+  height: 60px;
+  padding-top: 10px;
+}
+
+.ZapioBackdrop__card--pack span {
+  font-size: 11px;
+}
+
+.ZapioBackdrop__card--pack2 {
+  left: 90px;
+  top: 240px;
+  width: 260px;
+  height: 100px;
+  padding-left: 46px;
+  padding-top: 10px;
+}
+
+.ZapioBackdrop__card--pack2 > span {
+  font-size: 11px;
+}
+
+.ZapioBackdrop__card--pack2 b {
+  position: absolute;
+  right: 16px;
+  bottom: 8px;
+  font-size: 16px;
+}
+
+.ZapioBackdrop__radio {
+  position: absolute;
+  left: 14px;
+  top: 22px;
+  width: 16px;
+  height: 16px;
+  border: 3px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+}
+
+.ZapioBackdrop__card--bundle {
+  left: 440px;
+  top: 6px;
+  width: 182px;
+  height: 160px;
+  padding: 12px 14px;
+}
+
+.ZapioBackdrop__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
+.ZapioBackdrop__price {
+  text-align: right;
+}
+
+.ZapioBackdrop__price b {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.ZapioBackdrop__big {
+  font-size: 17px;
+}
+
+.ZapioBackdrop__thumb {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.ZapioBackdrop__cta {
+  display: block;
+  padding: 6px 0;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.18);
+  font-size: 12px;
+  text-align: center;
+}
+
+.ZapioBackdrop__card--addon,
+.ZapioBackdrop__card--addon2 {
+  left: 395px;
+  width: 228px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  font-size: 12px;
+}
+
+.ZapioBackdrop__card--addon {
+  top: 202px;
+}
+
+.ZapioBackdrop__card--addon2 {
+  top: 274px;
+}
+
+.ZapioBackdrop__add {
+  margin-left: auto;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 10px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Phone rig (authored in 200x410 device units, then scaled down)      */
+/* ------------------------------------------------------------------ */
+
+.ZapioPhone {
+  position: absolute;
+  left: 172px;
+  top: 2px;
+  width: 200px;
+  height: 410px;
+  transform: rotate(15deg) scale(0.34);
+  transform-origin: 0 0;
+}
+
+.ZapioPhone__rig {
+  position: relative;
+  width: 200px;
+  height: 410px;
+}
+
+.ZapioHand {
+  position: absolute;
+  left: -160px;
+  top: 0;
+}
+
+.ZapioPhone__device {
+  position: absolute;
+  inset: 0;
+  border-radius: 36px;
+  background: linear-gradient(135deg, #d9d2c6, #8f877b 40%, #e8e2d8 70%, #7d756a);
+  box-shadow:
+    0 30px 50px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.4);
+}
+
+.ZapioPhone__screen {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 184px;
+  height: 394px;
+  overflow: hidden;
+  border-radius: 29px;
+  background: #fff;
+  color: #1c1d1f;
+  font-family: var(--p-font-family-sans);
+  font-size: 8px;
+  line-height: 1.25;
+  box-shadow: inset 0 0 0 3px #111;
+}
+
+.ZapioPhone__statusbar {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 22px;
+  padding: 0 18px;
+  background: #fff;
+  font-size: 8px;
+  font-weight: 650;
+}
+
+.ZapioPhone__island {
+  width: 50px;
+  height: 13px;
+  border-radius: 8px;
+  background: #111;
+}
+
+.ZapioPhone__signal {
+  display: flex;
+  gap: 2px;
+}
+
+.ZapioPhone__signal i {
+  width: 4px;
+  height: 6px;
+  border-radius: 1px;
+  background: #1c1d1f;
+}
+
+.ZapioPhone__scroller {
+  position: absolute;
+  z-index: 1;
+  top: 22px;
+  left: 0;
+  right: 0;
+  animation: zapio-scroll var(--zapio-loop) infinite;
+}
+
+.ZapioPhone__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 30px;
+  padding: 0 12px;
+  border-bottom: 1px solid #eee;
+  box-sizing: border-box;
+}
+
+.ZapioPhone__logo {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+}
+
+.ZapioPhone__cart {
+  position: relative;
+  display: grid;
+}
+
+.ZapioPhone__badge {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  display: grid;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #1c1d1f;
+  color: #fff;
+  font-size: 6.5px;
+  font-weight: 700;
+  line-height: 10px;
+  text-align: center;
+  animation: zapio-badge var(--zapio-loop) infinite;
+}
+
+.ZapioPhone__badge0,
+.ZapioPhone__badge1 {
+  grid-area: 1 / 1;
+}
+
+.ZapioPhone__badge0 {
+  animation: zapio-idle var(--zapio-loop) infinite;
+}
+
+.ZapioPhone__badge1 {
+  animation: zapio-done var(--zapio-loop) infinite;
+}
+
+.ZapioPhone__crumbs {
+  height: 12px;
+  padding: 2px 12px 0;
+  color: #8a8d91;
+  font-size: 6.5px;
+  box-sizing: border-box;
+}
+
+.ZapioPhone__hero {
+  display: grid;
+  place-items: center;
+  height: 120px;
+  margin: 0 8px;
+  border-radius: 10px;
+  background: linear-gradient(160deg, #f4f5f7, #e6e8eb);
+}
+
+.ZapioPhone__product {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 28px;
+  margin-top: 8px;
+  padding: 0 12px;
+  font-size: 9px;
+}
+
+.ZapioPhone__sizes {
+  display: flex;
+  gap: 4px;
+  height: 18px;
+  padding: 0 12px;
+}
+
+.ZapioPhone__sizes i {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 14px;
+  border: 1px solid #d9dbdf;
+  border-radius: 4px;
+  font-size: 6.5px;
+  font-style: normal;
+  box-sizing: border-box;
+}
+
+.ZapioPhone__sizes .is-on {
+  border-color: #1c1d1f;
+  background: #1c1d1f;
+  color: #fff;
+}
+
+.ZapioPhone__offer {
+  margin-top: 10px;
+  padding: 0 8px;
+}
+
+.ZapioPhone__offer > strong {
+  display: block;
+  height: 14px;
+  font-size: 9.5px;
+}
+
+.ZapioPhone__offer > span {
+  display: block;
+  height: 12px;
+  color: #6d7175;
+  font-size: 7px;
+}
+
+.ZapioPhone__offerCard {
+  margin-top: 6px;
+  padding: 8px;
+  border: 1px solid #dfe1e4;
+  border-radius: 8px;
+  background: #fafbfb;
+}
+
+.ZapioPhone__offerCard > b {
+  display: block;
+  height: 12px;
+  font-size: 7.5px;
+}
+
+.ZapioPhone__offerCard > small {
+  display: block;
+  height: 11px;
+  color: #6d7175;
+  font-size: 6.5px;
+}
+
+.ZapioPhone__item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  margin-top: 6px;
+  padding: 0 4px;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 0 0 1px #eceef0;
+}
+
+.ZapioPhone__item + .ZapioPhone__item {
+  margin-top: 4px;
+}
+
+.ZapioPhone__thumb {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 5px;
+  background: #f1f2f4;
+}
+
+.ZapioPhone__thumb--bag {
+  background:
+    radial-gradient(circle at 50% 30%, transparent 5px, #2b2c2e 5.5px, #2b2c2e 7px, transparent 7.5px) top / 100% 60% no-repeat,
+    linear-gradient(#2b2c2e, #2b2c2e) center 70% / 16px 10px no-repeat,
+    #f1f2f4;
+}
+
+.ZapioPhone__itemText {
+  flex: 1;
+  min-width: 0;
+  font-size: 6.8px;
+  font-weight: 600;
+}
+
+.ZapioPhone__itemText small {
+  display: block;
+  color: #8a8d91;
+  font-size: 5.8px;
+  font-weight: 400;
+}
+
+.ZapioPhone__itemText .ZapioPhone__free {
+  color: #108043;
+  font-weight: 600;
+}
+
+.ZapioPhone__free s {
+  color: #a3a6aa;
+  font-weight: 400;
+}
+
+.ZapioPhone__claim {
+  display: grid;
+  flex: none;
+  width: 40px;
+  height: 16px;
+  font-size: 6.5px;
+  font-weight: 650;
+}
+
+.ZapioPhone__claim > span {
+  grid-area: 1 / 1;
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  background: #1c1d1f;
+  color: #fff;
+}
+
+.ZapioPhone__claim--live {
+  animation: zapio-press var(--zapio-loop) infinite;
+}
+
+.ZapioPhone__claim--live .ZapioPhone__claimIdle {
+  animation: zapio-idle var(--zapio-loop) infinite;
+}
+
+.ZapioPhone__claimDone {
+  background: #108043 !important;
+  opacity: 0;
+  animation: zapio-done var(--zapio-loop) infinite;
+}
+
+.ZapioPhone__more {
+  margin-top: 12px;
+  padding: 0 8px 20px;
+  font-size: 8.5px;
+}
+
+.ZapioPhone__more div {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.ZapioPhone__more i {
+  flex: 1;
+  height: 60px;
+  border-radius: 8px;
+  background: #f1f2f4;
+}
+
+.ZapioPhone__toast {
+  position: absolute;
+  z-index: 4;
+  top: 26px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 8px;
+  border-radius: 10px;
+  background: #1c1d1f;
+  color: #fff;
+  font-size: 7.5px;
+  font-weight: 600;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transform: translateY(-140%);
+  animation: zapio-toast var(--zapio-loop) infinite;
+}
+
+.ZapioPhone__toastIcon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #29c46a;
+  font-size: 8px;
+}
+
+/* The finger's origin is its contact point, so translate == touch position. */
+.ZapioPhone__finger {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  animation: zapio-finger var(--zapio-loop) infinite;
+}
+
+.ZapioTapFinger {
+  position: absolute;
+  left: -40px;
+  top: -6px;
+  transform: rotate(-18deg);
+  transform-origin: 40px 6px;
+}
+
+.ZapioPhone__ripple {
+  position: absolute;
+  left: -18px;
+  top: -18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 0 0 3px rgba(35, 165, 90, 0.6);
+  opacity: 0;
+  animation: zapio-ripple var(--zapio-loop) infinite;
+}
+
+/* ------------------------------------------------------------------ */
+/* Timeline                                                            */
+/*  0–10%  finger arrives and touches the product page                 */
+/* 10–32%  drag up: page scrolls 170px, finger travels with it          */
+/* 32–48%  lift, move to "+ Claim"                                      */
+/* 50–56%  tap → button flips to "Claimed", cart badge 0 → 1            */
+/* 56–86%  success toast                                                */
+/* 88–100% reset                                                        */
+/* ------------------------------------------------------------------ */
+
+@keyframes zapio-scroll {
+  0%,
+  10% {
+    transform: translateY(0);
+    animation-timing-function: var(--zapio-drag-ease);
+  }
+  32%,
+  88% {
+    transform: translateY(-170px);
+    animation-timing-function: ease-in-out;
+  }
+  98%,
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes zapio-finger {
+  0% {
+    opacity: 0;
+    transform: translate(170px, 330px) scale(1.15);
+    animation-timing-function: ease-out;
+  }
+  7% {
+    opacity: 1;
+    transform: translate(110px, 220px) scale(1.15);
+  }
+  10% {
+    transform: translate(110px, 220px) scale(1);
+    animation-timing-function: var(--zapio-drag-ease);
+  }
+  32% {
+    transform: translate(110px, 50px) scale(1);
+    animation-timing-function: ease-out;
+  }
+  36% {
+    transform: translate(116px, 46px) scale(1.15);
+    animation-timing-function: ease-in-out;
+  }
+  48%,
+  50% {
+    opacity: 1;
+    transform: translate(156px, 172px) scale(1.15);
+  }
+  52% {
+    transform: translate(156px, 172px) scale(0.96);
+  }
+  56% {
+    opacity: 1;
+    transform: translate(156px, 172px) scale(1.15);
+    animation-timing-function: ease-in;
+  }
+  68%,
+  100% {
+    opacity: 0;
+    transform: translate(220px, 340px) scale(1.15);
+  }
+}
+
+@keyframes zapio-ripple {
+  0%,
+  8% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  10%,
+  32% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  35%,
+  50% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  52% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  60%,
+  100% {
+    opacity: 0;
+    transform: scale(2.2);
+  }
+}
+
+@keyframes zapio-press {
+  0%,
+  50% {
+    transform: scale(1);
+  }
+  52% {
+    transform: scale(0.9);
+  }
+  56%,
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes zapio-idle {
+  0%,
+  52% {
+    opacity: 1;
+  }
+  54%,
+  94% {
+    opacity: 0;
+  }
+  97%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes zapio-done {
+  0%,
+  52% {
+    opacity: 0;
+  }
+  54%,
+  94% {
+    opacity: 1;
+  }
+  97%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes zapio-badge {
+  0%,
+  54% {
+    transform: scale(1);
+    background: #1c1d1f;
+  }
+  58% {
+    transform: scale(1.6);
+    background: #108043;
+  }
+  64%,
+  94% {
+    transform: scale(1);
+    background: #108043;
+  }
+  97%,
+  100% {
+    background: #1c1d1f;
+  }
+}
+
+@keyframes zapio-toast {
+  0%,
+  55% {
+    opacity: 0;
+    transform: translateY(-140%);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(4%);
+  }
+  62%,
+  84% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  89%,
+  100% {
+    opacity: 0;
+    transform: translateY(-140%);
+  }
+}
+
+/* Reduced motion: show the end state (scrolled, claimed, toast) statically. */
+@media (prefers-reduced-motion: reduce) {
+  .ZapioBanner * {
+    animation: none !important;
+  }
+
+  .ZapioPhone__scroller {
+    transform: translateY(-170px);
+  }
+
+  .ZapioPhone__finger {
+    display: none;
+  }
+
+  .ZapioPhone__claim--live .ZapioPhone__claimIdle,
+  .ZapioPhone__badge0 {
+    opacity: 0;
+  }
+
+  .ZapioPhone__claimDone,
+  .ZapioPhone__badge1 {
+    opacity: 1;
+  }
+
+  .ZapioPhone__toast {
+    opacity: 1;
+    transform: none;
+  }
+}
